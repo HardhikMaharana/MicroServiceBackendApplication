@@ -1,0 +1,58 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Auth",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5267
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Auth",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer"
+      //  //"AllowedScopes": [ "api1" ]
+      //}
+    },
+    {
+      "DownstreamPathTemplate": "/api/WeatherForecast",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5236
+        }
+      ],
+      "UpstreamPathTemplate": "/api/WeatherForecast",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        //"AllowedScopes": [ "api1" ]
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:7119"
+  },
+  "SwaggerEndPoints": [
+    {
+      "Key": "orders",
+      "Config": {
+        "Name": "Orders Service",
+        "Version": "v1",
+        "Url": "http://localhost:5267/swagger/v1/swagger.json"
+      }
+    },
+    {
+      "Key": "public",
+      "Config": {
+        "Name": "Public Service",
+        "Version": "v1",
+        "Url": "http://localhost:5236/swagger/v1/swagger.json"
+      }
+    }
+  ]
+}
+
