@@ -2,6 +2,7 @@
 using AuthService.Models;
 using AuthService.Services;
 using CustonJwtAuthManager;
+using CustonJwtAuthManager.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -48,6 +49,20 @@ namespace AuthService.Controllers
         {
             var response=await _authService.RegisterUser(Users);
             return Ok(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> RefreshToken(JwtRefreshRequestModel req)
+        {
+            var response = await _authService.GetJwtRefreshToken(req);
+            if (response.IsSuccessful == false)
+            {
+                return new UnauthorizedObjectResult(response);
+            }
+            else
+            {
+                return Ok(response);
+            }
+          
         }
     }
 }

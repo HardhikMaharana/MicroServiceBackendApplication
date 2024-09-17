@@ -1,4 +1,5 @@
 ﻿using AuthService.DTOs;
+using CustonJwtAuthManager.Model;
 
 namespace AuthService.Services
 {
@@ -6,5 +7,6 @@ namespace AuthService.Services
     {
         Task<ApiResponseDTO> LoginUser(LoginDTO login);
         Task<ApiResponseDTO> RegisterUser(UserRegisterDTO user);
+        Task<ApiResponseDTO> GetJwtRefreshToken(JwtRefreshRequestModel req);
     }
 }

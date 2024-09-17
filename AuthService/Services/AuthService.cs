@@ -4,6 +4,8 @@ using CustonJwtAuthManager;
 using CustonJwtAuthManager.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace AuthService.Services
 {
@@ -22,7 +24,15 @@ namespace AuthService.Services
             _db = db;
             _jwtToken = jwtToken;
         }
-        [HttpPost]
+        public async Task<string> GetUserRolesAsync(string userId)
+        {
+            var userRoles = await (from ur in _db.UserRoles
+                                   join r in _db.Roles on ur.RoleId equals r.Id
+                                   where ur.UserId == userId
+                                   select r.Name).FirstOrDefaultAsync();
+
+            return userRoles;
+        }
         public async Task<ApiResponseDTO> RegisterUser(UserRegisterDTO user)
         {
             try
@@ -59,7 +69,6 @@ namespace AuthService.Services
             }
             return _apires;
         }
-        [HttpPost]
         public async Task<ApiResponseDTO> LoginUser(LoginDTO login)
         {
             try
@@ -72,18 +81,41 @@ namespace AuthService.Services
 
                     if (IsValidUser != false)
                     {
+                        var userRole = await GetUserRolesAsync(IsValidEmail.Id);
                         JwtRequestModel req = new JwtRequestModel
                         {
-                              Id =IsValidEmail.Id,
-                              Email=IsValidEmail.Email,
-                              
-                              UserName=IsValidEmail.UserName, 
-                              
+                            Id = IsValidEmail.Id,
+                            Email = IsValidEmail.Email,
+                            Role = userRole,
+                              UserName = IsValidEmail.UserName,
+
                         };
-                        var token = _jwtToken.JwtTokenGeneration(req);
-                        _apires.Tokens = token;
-                        _apires.IsSuccessful = true;
-                        _apires.Message = "Login Success";
+                        var token = await _jwtToken.JwtTokenGeneration(req);
+
+                        if (token != null) {
+                          
+                            IsValidEmail.RefteshToken = token.RefreshToken;
+                            IsValidEmail.RefreshTokenExpiry = DateTime.Now.AddHours(1);
+                           var isupdated=await _userManager.UpdateAsync(IsValidEmail);
+                            if (isupdated != null)
+                            {
+                                _apires.Tokens = token;
+                                _apires.IsSuccessful = true;
+                                _apires.Message = "Login Success";
+                            }
+                            else
+                            {
+                                _apires.IsSuccessful = false;
+                                _apires.Message = "Something Went Wrong";
+                            }
+                          
+                        }
+                        else
+                        {
+                            _apires.IsSuccessful = false;
+                            _apires.Message = "Something Went Wrong";
+                        }
+                
                     }
                     else
                     {
@@ -95,6 +127,48 @@ namespace AuthService.Services
                 {
                     _apires.IsSuccessful = false;
                     _apires.Message = "Please Enter Valid Email";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return _apires;
+        }
+   
+        public async Task<ApiResponseDTO> GetJwtRefreshToken(JwtRefreshRequestModel req)
+        {
+            try
+            {
+                var IsUserPresent=await _userManager.FindByEmailAsync(req.Email);
+                if (IsUserPresent != null && req.Tokens.RefreshToken==IsUserPresent.RefteshToken && IsUserPresent.RefreshTokenExpiry>DateTime.Now) {
+                    var userRole =  await GetUserRolesAsync(IsUserPresent.Id);
+                    req.UserName = IsUserPresent.UserName??"";
+                    req.Id = IsUserPresent.Id;
+                    req.Email = IsUserPresent.Email ?? "";
+                    req.Role = userRole.ToString();
+                    req.Tokens.RefreshToken = IsUserPresent.RefteshToken;
+
+                    var AuthRefreshToken = await _jwtToken.GetRefreshToken(req);
+                    if (AuthRefreshToken != null) {
+                        _apires.IsSuccessful=true;
+                        _apires.Message = "Refreshed SuccessFully";
+                        _apires.Tokens = AuthRefreshToken;
+                    }
+                    else
+                    {
+                        _apires.IsSuccessful = false;
+                        _apires.Message = "Unauthorized Request Please Login";
+                        _apires.Tokens = null;
+                    }
+
+                }
+                else
+                {
+                    _apires.Message = "Session Expired Please Login";
+                    _apires.IsSuccessful = false;
                 }
 
             }

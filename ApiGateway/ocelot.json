@@ -26,11 +26,12 @@
         }
       ],
       "UpstreamPathTemplate": "/api/Auth/Login",
-      "UpstreamHttpMethod": [ "Post" ]
+      "UpstreamHttpMethod": [ "Post" ],
       //"AuthenticationOptions": {
       //  "AuthenticationProviderKey": "Bearer",
       //  "AllowedScopes": []
-      //}
+      //},
+
     },
     {
       "DownstreamPathTemplate": "/api/Auth/{Action}",
