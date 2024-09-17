@@ -12,9 +12,41 @@
       "UpstreamPathTemplate": "/api/Auth",
       "UpstreamHttpMethod": [ "Get", "Post" ]
       //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer"
-      //  //"AllowedScopes": [ "api1" ]
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
       //}
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/Login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5267
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Auth/Login",
+      "UpstreamHttpMethod": [ "Post" ]
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //}
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/{Action}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5267
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Auth/{Action}",
+      "UpstreamHttpMethod": [ "Post", "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/WeatherForecast",
@@ -28,8 +60,8 @@
       "UpstreamPathTemplate": "/api/WeatherForecast",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-        //"AllowedScopes": [ "api1" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     }
   ],

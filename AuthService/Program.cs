@@ -1,4 +1,7 @@
+using AuthService.DTOs;
 using AuthService.Models;
+using AuthService.Services;
+using CustonJwtAuthManager;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +20,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
     throw new Exception("Connection String not Found"));
 });
 
+builder.Services.AddSingleton<JwtTokenHandler>();   
 builder.Services.AddIdentity<Users,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddRoles<IdentityRole>()
@@ -39,6 +43,8 @@ builder.Services.AddAuthentication(options => {
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:Key"]))
     };
 });
+builder.Services.AddScoped<IAuthService,AuthService.Services.AuthService>();
+builder.Services.AddScoped<ApiResponseDTO>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -49,11 +50,15 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Bearer", options =>
     {
-        options.Authority = "https://localhost:5001"; // URL of the Authentication Microservice
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateAudience = true, // Depending on your setup, you may or may not validate the audience
-            ValidateIssuer = true // Depending on your setup, you may or may not validate the audience
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["jwt:Issuer"],
+            ValidAudience = builder.Configuration["jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:Key"]))
         };
     });
 builder.Services.AddOcelot();
