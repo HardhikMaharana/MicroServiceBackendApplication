@@ -3,6 +3,7 @@ using AuthService.Models;
 using AuthService.Services;
 using CustonJwtAuthManager;
 using CustonJwtAuthManager.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -24,6 +25,7 @@ namespace AuthService.Controllers
             _jwtToken=jwtToken;
         }
         [HttpGet]
+
         public IActionResult IsWorking()
         {
             try
@@ -51,6 +53,7 @@ namespace AuthService.Controllers
             return Ok(response);
         }
         [HttpPost]
+
         public async Task<IActionResult> RefreshToken(JwtRefreshRequestModel req)
         {
             var response = await _authService.GetJwtRefreshToken(req);

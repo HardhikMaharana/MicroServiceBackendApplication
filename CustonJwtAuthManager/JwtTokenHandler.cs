@@ -55,7 +55,8 @@ namespace CustonJwtAuthManager
                        new Claim(JwtRegisteredClaimNames.Name,Req.UserName??""),
                        new Claim(JwtRegisteredClaimNames.NameId,Req.Id??""),
                        new Claim(JwtRegisteredClaimNames.Email,Req.Email??""),
-                       new Claim("Role",Req.Role??"")
+                       new Claim(ClaimTypes.Role,Req.Role??"")
+
                    };
                 var Token = new JwtSecurityToken(
                 claims: UserClaims,

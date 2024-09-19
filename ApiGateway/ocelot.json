@@ -26,7 +26,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/Auth/Login",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post" ]
       //"AuthenticationOptions": {
       //  "AuthenticationProviderKey": "Bearer",
       //  "AllowedScopes": []
@@ -43,10 +43,16 @@
         }
       ],
       "UpstreamPathTemplate": "/api/Auth/{Action}",
-      "UpstreamHttpMethod": [ "Post", "Get" ],
+      "UpstreamHttpMethod": [ "Post", "Get","Put","Delete" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      //"AddHeadersToRequest": {
+      //  "Authorization": "Authorization"
+      //},
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
       }
     },
     {
@@ -59,10 +65,13 @@
         }
       ],
       "UpstreamPathTemplate": "/api/WeatherForecast",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Get", "Put", "Delete" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": "Admin"
       }
     }
   ],
