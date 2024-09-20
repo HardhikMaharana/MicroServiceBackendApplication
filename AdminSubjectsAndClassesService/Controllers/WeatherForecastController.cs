@@ -1,12 +1,9 @@
-using CurrentLoggedinUserDetails;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TeacherService.Controllers
+namespace AdminSubjectsAndClassesService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    [Authorize(Roles ="Admin")]
+    [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -15,11 +12,10 @@ namespace TeacherService.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly LoggedInUser _user;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, LoggedInUser user)
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _user = user;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -29,11 +25,9 @@ namespace TeacherService.Controllers
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)],
-                User = _user.User()
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
-            
         }
     }
 }

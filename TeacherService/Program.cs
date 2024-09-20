@@ -1,7 +1,9 @@
 using CurrentLoggedinUserDetails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TeacherService.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,10 @@ builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration
+    .GetConnectionString("TrachersConnection") ??
+    throw new Exception("Connection String Not Found")));
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Bearer", options =>
     {

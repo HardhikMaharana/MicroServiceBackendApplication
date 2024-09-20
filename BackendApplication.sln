@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustonJwtAuthManager", "CustonJwtAuthManager\CustonJwtAuthManager.csproj", "{FDD5A734-54C9-45F6-8408-37056E5D9265}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrentLoggedinUserDetails", "CurrentLoggedinUserDetails\CurrentLoggedinUserDetails.csproj", "{320D45F0-22FD-4F25-B2C0-CC393D52DDB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrentLoggedinUserDetails", "CurrentLoggedinUserDetails\CurrentLoggedinUserDetails.csproj", "{320D45F0-22FD-4F25-B2C0-CC393D52DDB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminSubjectsAndClassesService", "AdminSubjectsAndClassesService\AdminSubjectsAndClassesService.csproj", "{5E620135-AF9B-453C-B770-E70D269B4790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentService", "StudentService\StudentService.csproj", "{6F7FE997-1311-4FC3-9357-3A72B97B870C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{320D45F0-22FD-4F25-B2C0-CC393D52DDB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{320D45F0-22FD-4F25-B2C0-CC393D52DDB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{320D45F0-22FD-4F25-B2C0-CC393D52DDB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E620135-AF9B-453C-B770-E70D269B4790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E620135-AF9B-453C-B770-E70D269B4790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E620135-AF9B-453C-B770-E70D269B4790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E620135-AF9B-453C-B770-E70D269B4790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F7FE997-1311-4FC3-9357-3A72B97B870C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7FE997-1311-4FC3-9357-3A72B97B870C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7FE997-1311-4FC3-9357-3A72B97B870C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7FE997-1311-4FC3-9357-3A72B97B870C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
