@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustonJwtAuthManager", "Cus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrentLoggedinUserDetails", "CurrentLoggedinUserDetails\CurrentLoggedinUserDetails.csproj", "{320D45F0-22FD-4F25-B2C0-CC393D52DDB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminSubjectsAndClassesService", "AdminSubjectsAndClassesService\AdminSubjectsAndClassesService.csproj", "{5E620135-AF9B-453C-B770-E70D269B4790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminSubjectsAndClassesService", "AdminSubjectsAndClassesService\AdminSubjectsAndClassesService.csproj", "{5E620135-AF9B-453C-B770-E70D269B4790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentService", "StudentService\StudentService.csproj", "{6F7FE997-1311-4FC3-9357-3A72B97B870C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentService", "StudentService\StudentService.csproj", "{6F7FE997-1311-4FC3-9357-3A72B97B870C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
