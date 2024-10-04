@@ -9,17 +9,18 @@ namespace TeacherService.Controllers
     {
         public TeachersController() { }
 
-        //public Task<IActionResult> AddTeacher()
-        //{
-        //    try
-        //    {
+        [HttpPost]
+        public Task<IActionResult> AddTeacher()
+        {
+            try
+            {
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+            }
+            catch (Exception ex)
+            {
 
-        //        throw ex;
-        //    }
-        //}
+                throw ex;
+            }
+        }
     }
 }
