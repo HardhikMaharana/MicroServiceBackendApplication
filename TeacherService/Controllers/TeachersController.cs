@@ -10,7 +10,7 @@ namespace TeacherService.Controllers
         public TeachersController() { }
 
         [HttpPost]
-        public Task<IActionResult> AddTeacher()
+        public async Task<IActionResult> AddTeacher()
         {
             try
             {
@@ -21,6 +21,7 @@ namespace TeacherService.Controllers
 
                 throw ex;
             }
+            return Ok("");
         }
     }
 }
